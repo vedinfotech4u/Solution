@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ved Infotech Solutions | School Management Platform</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #ffffff;
+      color: #1e293b;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ----- ANIMATIONS (SCROLL REVEAL) ----- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+
+    /* ----- NAVBAR ----- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      padding: 14px 0;
+      transition: all 0.3s ease;
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0b1a2e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-brand i {
+      color: #2563eb;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #475569;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #2563eb;
+    }
+
+    .nav-cta {
+      background: #0b1a2e;
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: #1e3a5f;
+      transform: translateY(-1px);
+    }
+
+    .mobile-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #0b1a2e;
+    }
+
+    /* ----- HERO ----- */
+    .hero {
+      padding: 140px 0 80px;
+      background: linear-gradient(145deg, #f0f5ff 0%, #ffffff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 18px;
+      border-radius: 100px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3.4rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #0b1a2e;
+      max-width: 850px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: #2563eb;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #475569;
+      max-width: 700px;
+      margin-bottom: 36px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: #0b1a2e;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #1e3a5f;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -8px rgba(11, 26, 46, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #0b1a2e;
+      border: 2px solid #d1d9e6;
+    }
+
+    .btn-outline:hover {
+      border-color: #2563eb;
+      color: #2563eb;
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 56px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero-stats .stat-item {
+      text-align: center;
+    }
+
+    .hero-stats .stat-item .number {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #0b1a2e;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-stats .stat-item .label {
+      font-size: 0.9rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    /* ----- SECTIONS ----- */
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0b1a2e;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: #475569;
+      max-width: 700px;
+      margin-bottom: 40px;
+    }
+
+    /* ----- PROBLEM CARDS ----- */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: #f8fafc;
+      border-radius: 24px;
+      padding: 32px 28px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: #94a3b8;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .card-icon.red { color: #dc2626; }
+    .card-icon.orange { color: #ea580c; }
+    .card-icon.purple { color: #7c3aed; }
+    .card-icon.blue { color: #2563eb; }
+    .card-icon.green { color: #16a34a; }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #475569;
+    }
+
+    /* ----- ROLE CARDS ----- */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .role-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 28px 20px;
+      text-align: center;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+
+    .role-card:hover {
+      border-color: #2563eb;
+      box-shadow: 0 16px 32px -8px rgba(37, 99, 235, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .role-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .role-label.blue { color: #2563eb; }
+    .role-label.green { color: #16a34a; }
+    .role-label.purple { color: #7c3aed; }
+    .role-label.orange { color: #ea580c; }
+
+    .role-card .role-icon {
+      font-size: 2.4rem;
+      margin: 8px 0 12px;
+    }
+
+    .role-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .role-card p {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    /* ----- SCREENSHOT SECTION (TAB NAMES & DESCRIPTIONS) ----- */
+    .screenshot-block {
+      background: #f1f5f9;
+      border-radius: 24px;
+      padding: 28px 32px;
+      margin-top: 32px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .screenshot-tab-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0b1a2e;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .screenshot-tab-name i {
+      color: #2563eb;
+      font-size: 1rem;
+    }
+
+    .screenshot-desc {
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.7;
+    }
+
+    .screenshot-desc strong {
+      color: #0f172a;
+    }
+
+    .mini-ui {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-top: 14px;
+      font-size: 0.85rem;
+      color: #1e293b;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .mini-ui span {
+      background: #f8fafc;
+      padding: 4px 14px;
+      border-radius: 40px;
+      border: 1px solid #d1d9e6;
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+
+    .mini-ui .active-pill {
+      background: #2563eb;
+      color: #fff;
+      border-color: #2563eb;
+    }
+
+    /* ----- PRICING ----- */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 40px;
+    }
+
+    .pricing-card {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 40px 36px;
+      border: 2px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+
+    .pricing-card:hover {
+      border-color: #2563eb;
+      box-shadow: 0 24px 48px -12px rgba(37, 99, 235, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .pricing-card .tier-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+
+    .pricing-card .price {
+      font-size: 3.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #0b1a2e;
+      line-height: 1.1;
+      margin: 8px 0 12px;
+    }
+
+    .pricing-card .price small {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #64748b;
+      letter-spacing: normal;
+    }
+
+    .pricing-card p {
+      font-size: 1rem;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .pricing-card ul li {
+      padding: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #334155;
+      font-size: 0.95rem;
+    }
+
+    .pricing-card ul li i {
+      color: #2563eb;
+      font-size: 0.9rem;
+      width: 18px;
+    }
+
+    /* ----- CTA ----- */
+    .cta-section {
+      background: linear-gradient(145deg, #0b1a2e 0%, #1a2f4a 100%);
+      border-radius: 40px;
+      padding: 64px 56px;
+      color: #fff;
+      margin: 40px 0 80px;
+    }
+
+    .cta-section h2 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: 32px;
+    }
+
+    .cta-features {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .cta-features span {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    .cta-features i {
+      color: #3b82f6;
+    }
+
+    .cta-section .btn-primary {
+      background: #ffffff;
+      color: #0b1a2e;
+    }
+
+    .cta-section .btn-primary:hover {
+      background: #f1f5f9;
+      box-shadow: 0 12px 28px -8px rgba(255, 255, 255, 0.2);
+    }
+
+    /* ----- FOOTER ----- */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid #e2e8f0;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 1024px) {
+      .hero h1 { font-size: 2.8rem; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        padding: 20px 24px;
+        border-bottom: 1px solid #e2e8f0;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+        gap: 16px;
+      }
+
+      .hero h1 { font-size: 2.2rem; }
+      .hero p { font-size: 1rem; }
+      .hero-stats { gap: 28px; }
+      .hero-stats .stat-item .number { font-size: 1.8rem; }
+
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+
+      .section-title { font-size: 1.8rem; }
+      .cta-section { padding: 40px 28px; }
+      .cta-section h2 { font-size: 1.8rem; }
+      .cta-features { flex-direction: column; gap: 12px; }
+
+      .screenshot-block { padding: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .grid-4 { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.8rem; }
+      .hero-buttons { flex-direction: column; width: 100%; }
+      .btn { width: 100%; justify-content: center; }
+    }
+
+    /* Smooth counter animation for stats */
+    .stat-number {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#" class="nav-brand">
+        <i class="fas fa-school"></i> Ved Infotech
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#problem">Problem</a>
+        <a href="#roles">Roles</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact" class="nav-cta">Book Demo</a>
+      </div>
+      <div class="mobile-toggle" id="mobileToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge reveal">Trusted by Schools Across India</div>
+      <h1 class="reveal delay-1">
+        Run Your Entire School <span>Error-Free</span> with 60% Less Staff Overhead
+      </h1>
+      <p class="reveal delay-2">
+        One centralized platform connecting Owners, Principals, Teachers, and Parents — starting at just <strong>₹2,000/month</strong>.
+      </p>
+      <div class="hero-buttons reveal delay-3">
+        <a href="#contact" class="btn btn-primary">
+          <i class="fas fa-calendar-check"></i> Book a Free Demo
+        </a>
+        <a href="#screenshots" class="btn btn-outline">
+          <i class="fas fa-images"></i> See Screenshots
+        </a>
+      </div>
+
+      <div class="hero-stats reveal delay-4">
+        <div class="stat-item">
+          <div class="number"><span class="stat-number" data-target="60">0</span>%</div>
+          <div class="label">Reduction in Staff Costs</div>
+        </div>
+        <div class="stat-item">
+          <div class="number"><span class="stat-number" data-target="100">0</span>%</div>
+          <div class="label">Error-Free Fee Ledgers</div>
+        </div>
+        <div class="stat-item">
+          <div class="number"><span class="stat-number" data-target="2">0</span> Hrs</div>
+          <div class="label">Saved Daily per Teacher</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROBLEM SECTION ===== -->
+  <section class="section" id="problem">
+    <div class="container">
+      <span class="section-label reveal">The Traditional School Problem</span>
+      <h2 class="section-title reveal delay-1">Manual Management Bleeds School Budgets & Time</h2>
+      <p class="section-subtitle reveal delay-2">Schools lose money and efficiency due to outdated, manual processes.</p>
+
+      <div class="grid-3">
+        <div class="card reveal delay-1">
+          <div class="card-icon red"><i class="fas fa-users"></i></div>
+          <h3>Excessive Clerical Staff</h3>
+          <p>Multiple salaried clerks doing manual fee registers.</p>
+        </div>
+        <div class="card reveal delay-2">
+          <div class="card-icon orange"><i class="fas fa-calculator"></i></div>
+          <h3>Unforgiving Human Errors</h3>
+          <p>Attendance mismatches and delayed fee reconciliations.</p>
+        </div>
+        <div class="card reveal delay-3">
+          <div class="card-icon purple"><i class="fas fa-print"></i></div>
+          <h3>Heavy Printing Expenses</h3>
+          <p>Thousands spent printing slips, circulars, and cards.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ROLES SECTION ===== -->
+  <section class="section" id="roles" style="background: #f8fafc;">
+    <div class="container">
+      <span class="section-label reveal">Unified Architecture</span>
+      <h2 class="section-title reveal delay-1">Four Synchronized Logins on a Single Central Database</h2>
+      <p class="section-subtitle reveal delay-2">Every stakeholder gets a tailored portal — all connected in real time.</p>
+
+      <div class="grid-4">
+        <div class="role-card reveal delay-1">
+          <div class="role-label blue">Role 01</div>
+          <div class="role-icon" style="color: #2563eb;"><i class="fas fa-crown"></i></div>
+          <h3>School Owner</h3>
+          <p>Audited financial receipts and campus headcount.</p>
+        </div>
+        <div class="role-card reveal delay-2">
+          <div class="role-label green">Role 02</div>
+          <div class="role-icon" style="color: #16a34a;"><i class="fas fa-user-tie"></i></div>
+          <h3>Principal / Admin</h3>
+          <p>Academic control, bus routes, and timetable.</p>
+        </div>
+        <div class="role-card reveal delay-3">
+          <div class="role-label purple">Role 03</div>
+          <div class="role-icon" style="color: #7c3aed;"><i class="fas fa-chalkboard-teacher"></i></div>
+          <h3>Teacher</h3>
+          <p>Attendance, marks entry, notes, and syllabus.</p>
+        </div>
+        <div class="role-card reveal delay-4">
+          <div class="role-label orange">Role 04</div>
+          <div class="role-icon" style="color: #ea580c;"><i class="fas fa-user-graduate"></i></div>
+          <h3>Student & Parent</h3>
+          <p>Live feedback, circulars, and instant receipts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SCREENSHOTS SECTION (TAB NAMES + DESCRIPTIONS) ===== -->
+  <section class="section" id="screenshots">
+    <div class="container">
+      <span class="section-label reveal">Platform Walkthrough</span>
+      <h2 class="section-title reveal delay-1">Screenshot Tabs & Detailed Descriptions</h2>
+      <p class="section-subtitle reveal delay-2">Every screen is designed for clarity and speed. Below are the exact tab names and what each section contains.</p>
+
+      <!-- Owner Dashboard -->
+      <div class="screenshot-block reveal delay-1">
+        <div class="screenshot-tab-name">
+          <i class="fas fa-image"></i> Owner Dashboard — Tab: "Home · Notice · Fee Pay ▾ · Student Fee Details ▾ · Change Password · Logout"
+        </div>
+        <div class="screenshot-desc">
+          The owner's dashboard shows <strong>Total Teachers: 17</strong> and <strong>Total Students: 649</strong> with quick-action buttons ("See Teachers List", "See Students List"). The top navigation includes Home, Notice, Fee Pay, Student Fee Details, Change Password, and Logout. This provides a complete financial and operational overview at a glance. The <strong>Fee Pay dropdown</strong> reveals "Edit Receipt" and "See Payment" for granular control.
+        </div>
+        <div class="mini-ui">
+          <span class="active-pill">Home</span>
+          <span>Notice</span>
+          <span>Fee Pay ▾</span>
+          <span>Student Fee Details ▾</span>
+          <span>Change Password</span>
+          <span>Logout</span>
+        </div>
+      </div>
+
+      <!-- Principal Dashboard -->
+      <div class="screenshot-block reveal delay-2">
+        <div class="screenshot-tab-name">
+          <i class="fas fa-image"></i> Principal Dashboard — Tab: "Dashboard · Teacher · Student · Subjects · Attendance · Fee Dashboard · Notice Board · Time Table · Syllabus · Notes · Marks · Bus Service · Settings · Logout"
+        </div>
+        <div class="screenshot-desc">
+          The Principal's sidebar offers <strong>13 operational modules</strong> including Teacher management, Student records, Subjects, Attendance, Fee Dashboard, Notice Board, Time Table, Syllabus, Notes, Marks, Bus Service, Settings, and Logout. This single sidebar gives complete control over daily school operations. The <strong>Bus Service</strong> module maps transport stops and assigns student routes reliably, while the <strong>Time Table</strong> module eliminates clash schedules across all divisions.
+        </div>
+        <div class="mini-ui">
+          <span class="active-pill">Dashboard</span>
+          <span>Teacher</span>
+          <span>Student</span>
+          <span>Subjects</span>
+          <span>Attendance</span>
+          <span>Fee Dashboard</span>
+          <span>Notice Board</span>
+          <span>Time Table</span>
+          <span>Syllabus</span>
+          <span>Notes</span>
+          <span>Marks</span>
+          <span>Bus Service</span>
+          <span>Settings</span>
+          <span style="color: #ef4444;">Logout</span>
+        </div>
+      </div>
+
+      <!-- Teacher Dashboard -->
+      <div class="screenshot-block reveal delay-3">
+        <div class="screenshot-tab-name">
+          <i class="fas fa-image"></i> Teacher Dashboard — Tab: "Dashboard · Student · Attendance · Fee Dashboard · Notice Board · Time Table · Syllabus · Notes · Marks · Leaves · Settings · Logout"
+        </div>
+        <div class="screenshot-desc">
+          The Teacher's sidebar includes <strong>11 modules</strong> focused on daily classroom tasks: Student list, Attendance, Fee Dashboard, Notice Board, Time Table, Syllabus, Notes, Marks, Leaves, Settings, and Logout. This streamlined interface saves <strong>2+ hours daily</strong> by eliminating repetitive paperwork. Teachers can record daily roll calls in seconds, upload assignments instantly, and submit leave requests online with direct status tracking by the Principal.
+        </div>
+        <div class="mini-ui">
+          <span class="active-pill">Dashboard</span>
+          <span>Student</span>
+          <span>Attendance</span>
+          <span>Fee Dashboard</span>
+          <span>Notice Board</span>
+          <span>Time Table</span>
+          <span>Syllabus</span>
+          <span>Notes</span>
+          <span>Marks</span>
+          <span>Leaves</span>
+          <span>Settings</span>
+          <span style="color: #ef4444;">Logout</span>
+        </div>
+      </div>
+
+      <!-- Student / Parent Dashboard -->
+      <div class="screenshot-block reveal delay-4">
+        <div class="screenshot-tab-name">
+          <i class="fas fa-image"></i> Student / Parent Dashboard — Tab: "Home · Time Table · Examination · Fee Receipt · Workspace · Change Password · Logout"
+        </div>
+        <div class="screenshot-desc">
+          The parent portal provides complete transparency. The top bar includes <strong>Home, Time Table, Examination, Fee Receipt, Workspace, Change Password, and Logout</strong>. The left sidebar shows student details: <strong>Class 5, Section A, DOB, Contact, Email, Address, Bus, Bus Receipt</strong>. The center displays an <strong>Attendance</strong> section with a large orange circle showing "Absent" and monthly attendance charts. The right panel shows <strong>Notice</strong> (e.g., "SUMMER VACATION: Respected Parents, This is to inform you that the school will remain closed for summer vacation from 20 May 25 to 30 June 25...") and <strong>Feedbacks</strong> (e.g., "Good job" — 09 Jan, 2024 — Mehul Kumar). Parents can download payment receipts and exam notifications from any phone.
+        </div>
+        <div class="mini-ui">
+          <span class="active-pill">Home</span>
+          <span>Time Table</span>
+          <span>Examination</span>
+          <span>Fee Receipt</span>
+          <span>Workspace</span>
+          <span>Change Password</span>
+          <span>Logout</span>
+        </div>
+      </div>
+
+      <!-- Document Engine -->
+      <div class="screenshot-block reveal delay-1">
+        <div class="screenshot-tab-name">
+          <i class="fas fa-image"></i> Automated Document Engine — Tab: "Admit Card · Marksheet · Fee Demand Slip"
+        </div>
+        <div class="screenshot-desc">
+          Generate <strong>Exam Admit Cards</strong> with 1-click batch generation (student photo, roll number, exam center rules), <strong>Official Marksheets</strong> with pre-formatted report cards pulling raw subject marks automatically with zero math errors, and <strong>Fee Demand Slips</strong> with itemized quarterly and monthly payment invoices distributed directly to parents. All at just <strong>£1 per student</strong>.
+        </div>
+        <div class="mini-ui">
+          <span class="active-pill">Admit Card</span>
+          <span>Marksheet</span>
+          <span>Fee Demand Slip</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== PRICING SECTION ===== -->
+  <section class="section" id="pricing" style="background: #f8fafc;">
+    <div class="container">
+      <span class="section-label reveal">Pricing</span>
+      <h2 class="section-title reveal delay-1">Fraction of the Cost of a Single Administrative Assistant</h2>
+      <p class="section-subtitle reveal delay-2">Simple, transparent pricing that scales with your school.</p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card reveal-left">
+          <div class="tier-label">Base Institution Tier</div>
+          <div class="price">₹2,000 <small>/ month</small></div>
+          <p>Covers complete school operations for up to <strong>100 enrolled students</strong>.</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Includes all 4 role portals (Owner, Principal, Teacher, Student)</li>
+            <li><i class="fas fa-check-circle"></i> Central database & real-time sync</li>
+            <li><i class="fas fa-check-circle"></i> Full data migration support</li>
+            <li><i class="fas fa-check-circle"></i> Staff training included</li>
+            <li><i class="fas fa-check-circle"></i> Zero setup fees</li>
+          </ul>
+        </div>
+        <div class="pricing-card reveal-right">
+          <div class="tier-label" style="color: #16a34a;">Growth Add-On</div>
+          <div class="price">+₹300 <small>/ student</small></div>
+          <p>Affordable scaling beyond 100 students as your enrollment expands.</p>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> Unlimited teacher and administrative logins at zero fee</li>
+            <li><i class="fas fa-check-circle"></i> Priority support</li>
+            <li><i class="fas fa-check-circle"></i> Custom document templates</li>
+            <li><i class="fas fa-check-circle"></i> Advanced analytics dashboard</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA / CONTACT ===== -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="cta-section reveal">
+        <h2>Transform Your School Campus in Under 48 Hours</h2>
+        <p>Schedule a live 15-minute walkthrough of your school's customized portal with zero onboarding charges.</p>
+
+        <div class="cta-features">
+          <span><i class="fas fa-check-circle"></i> Full Data Migration Support</span>
+          <span><i class="fas fa-check-circle"></i> Staff Training Included</span>
+          <span><i class="fas fa-check-circle"></i> Zero Setup Fees</span>
+        </div>
+
+        <form id="demoForm" style="display: flex; gap: 12px; flex-wrap: wrap; max-width: 600px;">
+          <input type="text" placeholder="Your Name" required style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
+          <input type="email" placeholder="School Email" required style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
+          <button type="submit" class="btn btn-primary" style="white-space: nowrap;">
+            <i class="fas fa-paper-plane"></i> Request Demo
+          </button>
+        </form>
+        <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 12px;">
+          <i class="fas fa-lock"></i> We respect your privacy. No spam, ever.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Ved Infotech Solutions. All rights reserved. | School Management Platform</p>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // ----- SCROLL REVEAL -----
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    revealElements.forEach((el) => revealObserver.observe(el));
+
+    // ----- COUNTER ANIMATION -----
+    const statNumbers = document.querySelectorAll('.stat-number');
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.getAttribute('data-target'), 10);
+            let current = 0;
+            const step = Math.max(1, Math.floor(target / 50));
+            const timer = setInterval(() => {
+              current += step;
+              if (current >= target) {
+                el.textContent = target;
+                clearInterval(timer);
+              } else {
+                el.textContent = current;
+              }
+            }, 25);
+            counterObserver.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    statNumbers.forEach((el) => counterObserver.observe(el));
+
+    // ----- MOBILE NAV TOGGLE -----
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    mobileToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Close mobile nav when a link is clicked
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // ----- FORM SUBMIT (DEMO) -----
+    const demoForm = document.getElementById('demoForm');
+    demoForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = demoForm.querySelector('input[type="text"]').value.trim();
+      const email = demoForm.querySelector('input[type="email"]').value.trim();
+      if (name && email) {
+        alert(`Thank you, ${name}! We will contact you at ${email} shortly to schedule your demo.`);
+        demoForm.reset();
+      }
+    });
+
+    // ----- NAVBAR SHADOW ON SCROLL -----
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        navbar.style.boxShadow = '0 4px 24px rgba(0,0,0,0.06)';
+      } else {
+        navbar.style.boxShadow = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>
