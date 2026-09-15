@@ -599,6 +599,16 @@
       box-shadow: 0 12px 28px -8px rgba(255, 255, 255, 0.2);
     }
 
+    /* Honeypot field (hidden from genuine users) */
+    .hp-field {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      width: 0;
+    }
+
     /* ----- FOOTER ----- */
     .footer {
       padding: 40px 0;
@@ -869,7 +879,7 @@
           <i class="fas fa-image"></i> Student / Parent Dashboard — Tab: "Home · Time Table · Examination · Fee Receipt · Workspace · Change Password · Logout"
         </div>
         <div class="screenshot-desc">
-          The parent portal provides complete transparency. The top bar includes <strong>Home, Time Table, Examination, Fee Receipt, Workspace, Change Password, and Logout</strong>. The left sidebar shows student details: <strong>Class 5, Section A, DOB, Contact, Email, Address, Bus, Bus Receipt</strong>. The center displays an <strong>Attendance</strong> section with a large orange circle showing "Absent" and monthly attendance charts. The right panel shows <strong>Notice</strong> (e.g., "SUMMER VACATION: Respected Parents, This is to inform you that the school will remain closed for summer vacation from 20 May 25 to 30 June 25...") and <strong>Feedbacks</strong> (e.g., "Good job" — 09 Jan, 2024 — Mehul Kumar). Parents can download payment receipts and exam notifications from any phone.
+          The parent portal provides complete transparency. The top bar includes <strong>Home, Time Table, Examination, Fee Receipt, Workspace, Change Password, and Logout</strong>. The left sidebar shows student details: <strong>Class 5, Section A, DOB, Contact, Email, Address, Bus, Bus Receipt</strong>. The center displays an <strong>Attendance</strong> section with a large orange circle showing "Absent" and monthly attendance charts. The right panel shows <strong>Notice</strong> and <strong>Feedbacks</strong>. Parents can download payment receipts and exam notifications from any phone.
         </div>
         <div class="mini-ui">
           <span class="active-pill">Home</span>
@@ -888,7 +898,7 @@
           <i class="fas fa-image"></i> Automated Document Engine — Tab: "Admit Card · Marksheet · Fee Demand Slip"
         </div>
         <div class="screenshot-desc">
-          Generate <strong>Exam Admit Cards</strong> with 1-click batch generation (student photo, roll number, exam center rules), <strong>Official Marksheets</strong> with pre-formatted report cards pulling raw subject marks automatically with zero math errors, and <strong>Fee Demand Slips</strong> with itemized quarterly and monthly payment invoices distributed directly to parents. All at just <strong>£1 per student</strong>.
+          Generate <strong>Exam Admit Cards</strong> with 1-click batch generation (student photo, roll number, exam center rules), <strong>Official Marksheets</strong> with pre-formatted report cards pulling raw subject marks automatically with zero math errors, and <strong>Fee Demand Slips</strong> with itemized quarterly and monthly payment invoices distributed directly to parents. All at just <strong>₹1 per student</strong>.
         </div>
         <div class="mini-ui">
           <span class="active-pill">Admit Card</span>
@@ -949,6 +959,9 @@
         </div>
 
         <form id="demoForm" style="display: flex; gap: 12px; flex-wrap: wrap; max-width: 600px;">
+          <!-- Honeypot anti-spam trap (invisible to human visitors) -->
+          <input type="text" name="website_trap" tabindex="-1" autocomplete="off" class="hp-field" />
+
           <input type="text" name="name" placeholder="Your Name" required style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
           <input type="email" name="email" placeholder="School Email" required style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
           <input type="text" name="school" placeholder="School Name" style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
@@ -957,7 +970,6 @@
           </button>
         </form>
 
-       
         <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 12px;">
           <i class="fas fa-lock"></i> We respect your privacy. No spam, ever.
         </p>
@@ -1030,40 +1042,50 @@
       });
     });
 
-      // ----- FORM SUBMIT (GOOGLE SHEETS) -----
-      const demoForm = document.getElementById('demoForm');
-      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyw3zCMwMsooHjTxlv6Mkn5v40LNqtOoQ7lQTevX8POOjyvgejizx24QdmfDpVC1LiF/exec"; // <-- paste the URL from Step 4
-      
-      demoForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-      
-        const name = demoForm.querySelector('input[name="name"]').value.trim();
-        const email = demoForm.querySelector('input[name="email"]').value.trim();
-        const school = demoForm.querySelector('input[name="school"]').value.trim() || "Not provided";
-      
-        const submitBtn = demoForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitBtn.disabled = true;
-      
-        try {
-          await fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors', // Required for Google Apps Script
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, school })
-          });
-      
-          alert(`Thank you, ${name}! We'll contact you at ${email} shortly to schedule your demo.`);
-          demoForm.reset();
-        } catch (error) {
-          alert("Something went wrong. Please try again or email us directly.");
-          console.error(error);
-        } finally {
-          submitBtn.innerHTML = originalText;
-          submitBtn.disabled = false;
-        }
-      });
+    // ----- FORM SUBMIT (GOOGLE SHEETS INTEGRATION) -----
+    const demoForm = document.getElementById('demoForm');
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyw3zCMwMsooHjTxlv6Mkn5v40LNqtOoQ7lQTevX8POOjyvgejizx24QdmfDpVC1LiF/exec";
+
+    demoForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Bot protection: silently reject if honeypot was filled
+      const trap = demoForm.querySelector('input[name="website_trap"]').value;
+      if (trap) {
+        demoForm.reset();
+        return;
+      }
+
+      const name = demoForm.querySelector('input[name="name"]').value.trim();
+      const email = demoForm.querySelector('input[name="email"]').value.trim();
+      const school = demoForm.querySelector('input[name="school"]').value.trim() || "Not provided";
+
+      const submitBtn = demoForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      submitBtn.disabled = true;
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            // Must be text/plain so the browser skips CORS preflight OPTIONS check
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify({ name, email, school })
+        });
+
+        alert(`Thank you, ${name}! We'll contact you at ${email} shortly to schedule your demo.`);
+        demoForm.reset();
+      } catch (error) {
+        alert("Something went wrong. Please try again or email us directly.");
+        console.error(error);
+      } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
+    });
 
     // ----- NAVBAR SHADOW ON SCROLL -----
     const navbar = document.getElementById('navbar');
