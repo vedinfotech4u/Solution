@@ -949,12 +949,15 @@
         </div>
 
         <form id="demoForm" style="display: flex; gap: 12px; flex-wrap: wrap; max-width: 600px;">
-          <input type="text" placeholder="Your Name" required style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
-          <input type="email" placeholder="School Email" required style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
+          <input type="text" name="name" placeholder="Your Name" required style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
+          <input type="email" name="email" placeholder="School Email" required style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
+          <input type="text" name="school" placeholder="School Name" style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
           <button type="submit" class="btn btn-primary" style="white-space: nowrap;">
             <i class="fas fa-paper-plane"></i> Request Demo
           </button>
         </form>
+
+       
         <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 12px;">
           <i class="fas fa-lock"></i> We respect your privacy. No spam, ever.
         </p>
@@ -1027,17 +1030,40 @@
       });
     });
 
-    // ----- FORM SUBMIT (DEMO) -----
-    const demoForm = document.getElementById('demoForm');
-    demoForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = demoForm.querySelector('input[type="text"]').value.trim();
-      const email = demoForm.querySelector('input[type="email"]').value.trim();
-      if (name && email) {
-        alert(`Thank you, ${name}! We will contact you at ${email} shortly to schedule your demo.`);
-        demoForm.reset();
-      }
-    });
+      // ----- FORM SUBMIT (GOOGLE SHEETS) -----
+      const demoForm = document.getElementById('demoForm');
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyw3zCMwMsooHjTxlv6Mkn5v40LNqtOoQ7lQTevX8POOjyvgejizx24QdmfDpVC1LiF/exec"; // <-- paste the URL from Step 4
+      
+      demoForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+      
+        const name = demoForm.querySelector('input[name="name"]').value.trim();
+        const email = demoForm.querySelector('input[name="email"]').value.trim();
+        const school = demoForm.querySelector('input[name="school"]').value.trim() || "Not provided";
+      
+        const submitBtn = demoForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+      
+        try {
+          await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Required for Google Apps Script
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, school })
+          });
+      
+          alert(`Thank you, ${name}! We'll contact you at ${email} shortly to schedule your demo.`);
+          demoForm.reset();
+        } catch (error) {
+          alert("Something went wrong. Please try again or email us directly.");
+          console.error(error);
+        } finally {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+        }
+      });
 
     // ----- NAVBAR SHADOW ON SCROLL -----
     const navbar = document.getElementById('navbar');
