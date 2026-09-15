@@ -411,7 +411,7 @@
       color: #64748b;
     }
 
-    /* ----- SCREENSHOT SECTION (TAB NAMES & DESCRIPTIONS) ----- */
+    /* ----- SCREENSHOT SECTION ----- */
     .screenshot-block {
       background: #f1f5f9;
       border-radius: 24px;
@@ -599,7 +599,29 @@
       box-shadow: 0 12px 28px -8px rgba(255, 255, 255, 0.2);
     }
 
-    /* Honeypot field (hidden from genuine users) */
+    /* Contact Form Layout */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      max-width: 650px;
+    }
+
+    .form-grid .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 50px;
+      border: none;
+      font-size: 0.95rem;
+      outline: none;
+      font-family: inherit;
+    }
+
+    /* Honeypot field */
     .hp-field {
       position: absolute;
       left: -9999px;
@@ -662,6 +684,7 @@
       .cta-section h2 { font-size: 1.8rem; }
       .cta-features { flex-direction: column; gap: 12px; }
 
+      .form-grid { grid-template-columns: 1fr; }
       .screenshot-block { padding: 20px; }
     }
 
@@ -672,7 +695,6 @@
       .btn { width: 100%; justify-content: center; }
     }
 
-    /* Smooth counter animation for stats */
     .stat-number {
       display: inline-block;
     }
@@ -798,7 +820,7 @@
     </div>
   </section>
 
-  <!-- ===== SCREENSHOTS SECTION (TAB NAMES + DESCRIPTIONS) ===== -->
+  <!-- ===== SCREENSHOTS SECTION ===== -->
   <section class="section" id="screenshots">
     <div class="container">
       <span class="section-label reveal">Platform Walkthrough</span>
@@ -958,19 +980,24 @@
           <span><i class="fas fa-check-circle"></i> Zero Setup Fees</span>
         </div>
 
-        <form id="demoForm" style="display: flex; gap: 12px; flex-wrap: wrap; max-width: 600px;">
-          <!-- Honeypot anti-spam trap (invisible to human visitors) -->
+        <form id="demoForm">
+          <!-- Honeypot anti-spam field -->
           <input type="text" name="website_trap" tabindex="-1" autocomplete="off" class="hp-field" />
 
-          <input type="text" name="name" placeholder="Your Name" required style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
-          <input type="email" name="email" placeholder="School Email" required style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
-          <input type="text" name="school" placeholder="School Name" style="flex: 1; min-width: 180px; padding: 14px 20px; border-radius: 50px; border: none; font-size: 1rem; outline: none;" />
-          <button type="submit" class="btn btn-primary" style="white-space: nowrap;">
-            <i class="fas fa-paper-plane"></i> Request Demo
-          </button>
+          <div class="form-grid">
+            <input type="text" name="name" class="form-input" placeholder="Your Name *" required />
+            <input type="tel" name="phone" class="form-input" placeholder="Phone Number *" required />
+            <input type="email" name="email" class="form-input" placeholder="School Email *" required />
+            <input type="text" name="school" class="form-input" placeholder="School Name *" required />
+            <input type="text" name="address" class="form-input full-width" placeholder="School Address / City *" required />
+            
+            <button type="submit" class="btn btn-primary full-width" style="justify-content: center;">
+              <i class="fas fa-paper-plane"></i> Request Demo
+            </button>
+          </div>
         </form>
 
-        <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 12px;">
+        <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 14px;">
           <i class="fas fa-lock"></i> We respect your privacy. No spam, ever.
         </p>
       </div>
@@ -1035,7 +1062,6 @@
       navLinks.classList.toggle('open');
     });
 
-    // Close mobile nav when a link is clicked
     navLinks.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('open');
@@ -1049,7 +1075,7 @@
     demoForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Bot protection: silently reject if honeypot was filled
+      // Bot prevention: silent return if honeypot was populated
       const trap = demoForm.querySelector('input[name="website_trap"]').value;
       if (trap) {
         demoForm.reset();
@@ -1057,12 +1083,14 @@
       }
 
       const name = demoForm.querySelector('input[name="name"]').value.trim();
+      const phone = demoForm.querySelector('input[name="phone"]').value.trim();
       const email = demoForm.querySelector('input[name="email"]').value.trim();
-      const school = demoForm.querySelector('input[name="school"]').value.trim() || "Not provided";
+      const school = demoForm.querySelector('input[name="school"]').value.trim();
+      const address = demoForm.querySelector('input[name="address"]').value.trim();
 
       const submitBtn = demoForm.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
       submitBtn.disabled = true;
 
       try {
@@ -1070,13 +1098,12 @@
           method: 'POST',
           mode: 'no-cors',
           headers: {
-            // Must be text/plain so the browser skips CORS preflight OPTIONS check
             'Content-Type': 'text/plain;charset=utf-8'
           },
-          body: JSON.stringify({ name, email, school })
+          body: JSON.stringify({ name, phone, email, school, address })
         });
 
-        alert(`Thank you, ${name}! We'll contact you at ${email} shortly to schedule your demo.`);
+        alert(`Thank you, ${name}! We have received your request and will contact you at ${phone} or ${email} shortly.`);
         demoForm.reset();
       } catch (error) {
         alert("Something went wrong. Please try again or email us directly.");
