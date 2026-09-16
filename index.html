@@ -461,17 +461,91 @@
 
     .mini-ui span {
       background: #f8fafc;
-      padding: 4px 14px;
+      padding: 6px 14px;
       border-radius: 40px;
       border: 1px solid #d1d9e6;
       font-weight: 500;
       font-size: 0.8rem;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mini-ui span:hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+      transform: translateY(-1px);
     }
 
     .mini-ui .active-pill {
       background: #2563eb;
       color: #fff;
       border-color: #2563eb;
+    }
+
+    .mini-ui .active-pill:hover {
+      background: #1d4ed8;
+      color: #fff;
+    }
+
+    /* ----- LIGHTBOX MODAL ----- */
+    .img-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(11, 26, 46, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .modal-wrapper {
+      position: relative;
+      max-width: 90%;
+      max-height: 88vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      max-width: 100%;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      animation: zoomInModal 0.25s ease forwards;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 32px;
+      color: #ffffff;
+      font-size: 38px;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s ease;
+      z-index: 2001;
+    }
+
+    .close-modal:hover {
+      color: #93c5fd;
+    }
+
+    @keyframes zoomInModal {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     /* ----- PRICING ----- */
@@ -547,7 +621,7 @@
       width: 18px;
     }
 
-    /* ----- CTA ----- */
+    /* ----- CTA / CONTACT ----- */
     .cta-section {
       background: linear-gradient(145deg, #0b1a2e 0%, #1a2f4a 100%);
       border-radius: 40px;
@@ -599,7 +673,6 @@
       box-shadow: 0 12px 28px -8px rgba(255, 255, 255, 0.2);
     }
 
-    /* Contact Form Layout */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -825,41 +898,25 @@
     <div class="container">
       <span class="section-label reveal">Platform Walkthrough</span>
       <h2 class="section-title reveal delay-1">Screenshot Tabs & Detailed Descriptions</h2>
-      <p class="section-subtitle reveal delay-2">Every screen is designed for clarity and speed. Below are the exact tab names and what each section contains.</p>
+      <p class="section-subtitle reveal delay-2">Click any tab below to view full-resolution preview screenshots.</p>
 
       <!-- Owner Dashboard -->
-      <!--<div class="screenshot-block reveal delay-1">
+      <div class="screenshot-block reveal delay-1">
         <div class="screenshot-tab-name">
-          <i class="fas fa-image"></i> Owner Dashboard — Tab: "Home · Notice · Fee Pay ▾ · Student Fee Details ▾ · Change Password · Logout"
+          <i class="fas fa-chart-line"></i> Owner Command Center — Real-Time School Overview & Financial Control
         </div>
         <div class="screenshot-desc">
-          The owner's dashboard shows <strong>Total Teachers: 17</strong> and <strong>Total Students: 649</strong> with quick-action buttons ("See Teachers List", "See Students List"). The top navigation includes Home, Notice, Fee Pay, Student Fee Details, Change Password, and Logout. This provides a complete financial and operational overview at a glance. The <strong>Fee Pay dropdown</strong> reveals "Edit Receipt" and "See Payment" for granular control.
+          Gain full visibility over institutional health from a single command screen. Instantly track key metrics like active staff (<strong>Teachers</strong>) and enrolled learners (<strong>Students</strong>) with one-click roster drills. The built-in <strong>Fee Pay</strong> and <strong>Student Fee Details</strong> modules streamline cash-flow tracking—allowing administrators to audit collections, generate real-time receipts, and prevent revenue leakage without switching between disconnected spreadsheets.
         </div>
         <div class="mini-ui">
-          <span class="active-pill">Home</span>
-          <span>Notice</span>
-          <span>Fee Pay ▾</span>
-          <span>Student Fee Details ▾</span>
-          <span>Change Password</span>
-          <span>Logout</span>
+          <span class="active-pill" data-img="images/owner-home.png"><i class="fas fa-eye"></i> Home</span>
+          <span data-img="images/owner-notice.png"><i class="fas fa-eye"></i> Notice</span>
+          <span data-img="images/owner-feepay.png"><i class="fas fa-eye"></i> Fee Pay ▾</span>
+          <span data-img="images/owner-feedetails.png"><i class="fas fa-eye"></i> Student Fee Details ▾</span>
+          <span data-img="images/owner-password.png"><i class="fas fa-eye"></i> Change Password</span>
+          <span data-img="images/owner-logout.png"><i class="fas fa-eye"></i> Logout</span>
         </div>
-      </div>-->
-      <div class="screenshot-block reveal delay-1">
-          <div class="screenshot-tab-name">
-            <i class="fas fa-chart-line"></i> Owner Command Center — Real-Time School Overview & Financial Control
-          </div>
-          <div class="screenshot-desc">
-            Gain full visibility over institutional health from a single command screen. Instantly track key metrics like active staff (<strong>Teachers</strong>) and enrolled learners (<strong>Students</strong>) with one-click roster drills. The built-in <strong>Fee Pay</strong> and <strong>Student Fee Details</strong> modules streamline cash-flow tracking—allowing administrators to audit collections, generate real-time receipts, and prevent revenue leakage without switching between disconnected spreadsheets.
-          </div>
-          <div class="mini-ui">
-            <span class="active-pill">Home</span>
-            <span>Notice</span>
-            <span>Fee Pay ▾</span>
-            <span>Student Fee Details ▾</span>
-            <span>Change Password</span>
-            <span>Logout</span>
-          </div>
-        </div>
+      </div>
       
       <!-- All-in-One Digital Presence & Cost Cutter -->
       <div class="screenshot-block reveal delay-2">
@@ -870,10 +927,10 @@
           Replace expensive, outdated third-party websites and dedicated web staff. Most institutions spend <strong>₹10,000–₹15,000 every month</strong> just paying technicians to upload circulars and fix broken pages. This platform acts as your self-updating digital presence: circulars, timetables, fee links, and exam news publish live instantly from administrative inputs—<strong>saving your school ₹1.2L to ₹1.8L annually</strong> while running on 100% autopilot.
         </div>
         <div class="mini-ui">
-          <span class="active-pill">Zero Web Staff Needed</span>
-          <span>Instant Auto-Publish</span>
-          <span>Save ₹15,000/mo</span>
-          <span>Zero Server Downtime</span>
+          <span class="active-pill" data-img="images/portal-overview.png"><i class="fas fa-eye"></i> Zero Web Staff Needed</span>
+          <span data-img="images/portal-publish.png"><i class="fas fa-eye"></i> Instant Auto-Publish</span>
+          <span data-img="images/portal-savings.png"><i class="fas fa-eye"></i> Save ₹15,000/mo</span>
+          <span data-img="images/portal-uptime.png"><i class="fas fa-eye"></i> Zero Server Downtime</span>
         </div>
       </div>
       
@@ -886,20 +943,20 @@
           Run your entire institution effortlessly with <strong>integrated operational modules</strong>. Oversee faculty schedules, academic performance, and institutional logistics from a single vantage point. The smart <strong>Time Table engine</strong> automatically resolves class and teacher conflicts, while the <strong>Bus Service</strong> module coordinates route mapping and transport safety—turning complex, daily administrative chaos into a streamlined, automated workflow.
         </div>
         <div class="mini-ui">
-          <span class="active-pill">Dashboard</span>
-          <span>Teacher</span>
-          <span>Student</span>
-          <span>Subjects</span>
-          <span>Attendance</span>
-          <span>Fee Dashboard</span>
-          <span>Notice Board</span>
-          <span>Time Table</span>
-          <span>Syllabus</span>
-          <span>Notes</span>
-          <span>Marks</span>
-          <span>Bus Service</span>
-          <span>Settings</span>
-          <span style="color: #ef4444;">Logout</span>
+          <span class="active-pill" data-img="images/principal-dashboard.png"><i class="fas fa-eye"></i> Dashboard</span>
+          <span data-img="principal/teacher.png"><i class="fas fa-eye"></i> Teacher</span>
+          <span data-img="principal/student.png"><i class="fas fa-eye"></i> Student</span>
+          <span data-img="images/principal-subjects.png"><i class="fas fa-eye"></i> Subjects</span>
+          <span data-img="images/principal-attendance.png"><i class="fas fa-eye"></i> Attendance</span>
+          <span data-img="images/principal-fee.png"><i class="fas fa-eye"></i> Fee Dashboard</span>
+          <span data-img="images/principal-notice.png"><i class="fas fa-eye"></i> Notice Board</span>
+          <span data-img="images/principal-timetable.png"><i class="fas fa-eye"></i> Time Table</span>
+          <span data-img="images/principal-syllabus.png"><i class="fas fa-eye"></i> Syllabus</span>
+          <span data-img="images/principal-notes.png"><i class="fas fa-eye"></i> Notes</span>
+          <span data-img="images/principal-marks.png"><i class="fas fa-eye"></i> Marks</span>
+          <span data-img="images/principal-bus.png"><i class="fas fa-eye"></i> Bus Service</span>
+          <span data-img="images/principal-settings.png"><i class="fas fa-eye"></i> Settings</span>
+          <span style="color: #ef4444;" data-img="images/principal-logout.png"><i class="fas fa-eye"></i> Logout</span>
         </div>
       </div>
 
@@ -912,18 +969,18 @@
           Empower educators to focus on teaching rather than paperwork. This purpose-built workspace saves staff <strong>over 2 hours every day</strong> by digitizing roll calls, syllabus planning, assignment sharing, and grade entry. Teachers can mark class attendance in seconds, publish digital study material instantly, and track leave approvals directly—eliminating register clutter and manual record-keeping.
         </div>
         <div class="mini-ui">
-          <span class="active-pill">Dashboard</span>
-          <span>Student</span>
-          <span>Attendance</span>
-          <span>Fee Dashboard</span>
-          <span>Notice Board</span>
-          <span>Time Table</span>
-          <span>Syllabus</span>
-          <span>Notes</span>
-          <span>Marks</span>
-          <span>Leaves</span>
-          <span>Settings</span>
-          <span style="color: #ef4444;">Logout</span>
+          <span class="active-pill" data-img="images/teacher-dashboard.png"><i class="fas fa-eye"></i> Dashboard</span>
+          <span data-img="images/teacher-student.png"><i class="fas fa-eye"></i> Student</span>
+          <span data-img="images/teacher-attendance.png"><i class="fas fa-eye"></i> Attendance</span>
+          <span data-img="images/teacher-fee.png"><i class="fas fa-eye"></i> Fee Dashboard</span>
+          <span data-img="images/teacher-notice.png"><i class="fas fa-eye"></i> Notice Board</span>
+          <span data-img="images/teacher-timetable.png"><i class="fas fa-eye"></i> Time Table</span>
+          <span data-img="images/teacher-syllabus.png"><i class="fas fa-eye"></i> Syllabus</span>
+          <span data-img="images/teacher-notes.png"><i class="fas fa-eye"></i> Notes</span>
+          <span data-img="images/teacher-marks.png"><i class="fas fa-eye"></i> Marks</span>
+          <span data-img="images/teacher-leaves.png"><i class="fas fa-eye"></i> Leaves</span>
+          <span data-img="images/teacher-settings.png"><i class="fas fa-eye"></i> Settings</span>
+          <span style="color: #ef4444;" data-img="images/teacher-logout.png"><i class="fas fa-eye"></i> Logout</span>
         </div>
       </div>
 
@@ -936,15 +993,16 @@
           Bridge the home-to-school communication gap with round-the-clock parent engagement. Guardians enjoy on-demand access to real-time attendance trends, official notices, exam schedules, and teacher feedback. The integrated self-service billing allows parents to instantly verify dues and download official payment receipts straight to their smartphones—drastically cutting front-desk inquiries and payment disputes.
         </div>
         <div class="mini-ui">
-          <span class="active-pill">Home</span>
-          <span>Time Table</span>
-          <span>Examination</span>
-          <span>Fee Receipt</span>
-          <span>Workspace</span>
-          <span>Change Password</span>
-          <span>Logout</span>
+          <span class="active-pill" data-img="images/parent-home.png"><i class="fas fa-eye"></i> Home</span>
+          <span data-img="images/parent-timetable.png"><i class="fas fa-eye"></i> Time Table</span>
+          <span data-img="images/parent-exam.png"><i class="fas fa-eye"></i> Examination</span>
+          <span data-img="images/parent-receipt.png"><i class="fas fa-eye"></i> Fee Receipt</span>
+          <span data-img="images/parent-workspace.png"><i class="fas fa-eye"></i> Workspace</span>
+          <span data-img="images/parent-password.png"><i class="fas fa-eye"></i> Change Password</span>
+          <span data-img="images/parent-logout.png"><i class="fas fa-eye"></i> Logout</span>
         </div>
       </div>
+
       <!-- WhatsApp Notification Feature -->
       <div class="screenshot-block reveal delay-2">
         <div class="screenshot-tab-name">
@@ -954,9 +1012,9 @@
           Build immediate trust with automated parent communication. The instant a fee payment is recorded or an invoice is generated, parents receive a real-time, branded receipt breakdown delivered straight to their <strong>WhatsApp inbox</strong>. Zero manual follow-ups, zero paper waste, and 100% financial transparency for every transaction.
         </div>
         <div class="mini-ui">
-          <span class="active-pill">Auto-SMS / WhatsApp</span>
-          <span>Digital PDF Receipt</span>
-          <span>Instant Ledger Sync</span>
+          <span class="active-pill" data-img="images/whatsapp-receipt.png"><i class="fas fa-eye"></i> Auto-SMS / WhatsApp</span>
+          <span data-img="images/whatsapp-pdf.png"><i class="fas fa-eye"></i> Digital PDF Receipt</span>
+          <span data-img="images/whatsapp-sync.png"><i class="fas fa-eye"></i> Instant Ledger Sync</span>
         </div>
       </div>
 
@@ -969,9 +1027,9 @@
           Eliminate manual document formatting and clerical errors with automated batch rendering. Produce verified, professional-grade <strong>Exam Admit Cards</strong> with photo embeds, error-free <strong>Official Marksheets</strong> computed directly from subject databases, and itemized <strong>Fee Demand Slips</strong> ready for digital dispatch or printing—all powered at an unbeatable cost of just <strong>₹1 per sheet</strong>.
         </div>
         <div class="mini-ui">
-          <span class="active-pill">Admit Card</span>
-          <span>Marksheet</span>
-          <span>Fee Demand Slip</span>
+          <span class="active-pill" data-img="images/engine-admitcard.png"><i class="fas fa-eye"></i> Admit Card</span>
+          <span data-img="images/engine-marksheet.png"><i class="fas fa-eye"></i> Marksheet</span>
+          <span data-img="images/engine-feeslip.png"><i class="fas fa-eye"></i> Fee Demand Slip</span>
         </div>
       </div>
 
@@ -1057,6 +1115,14 @@
     </div>
   </footer>
 
+  <!-- ===== LIGHTBOX MODAL CONTAINER ===== -->
+  <div id="imageModal" class="img-modal">
+    <span class="close-modal">&times;</span>
+    <div class="modal-wrapper">
+      <img id="modalImg" class="modal-content" src="" alt="Dashboard Preview" />
+    </div>
+  </div>
+
   <!-- ===== JAVASCRIPT ===== -->
   <script>
     // ----- SCROLL REVEAL -----
@@ -1112,6 +1178,44 @@
       link.addEventListener('click', () => {
         navLinks.classList.remove('open');
       });
+    });
+
+    // ----- IMAGE PREVIEW LIGHTBOX -----
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const closeModal = document.querySelector('.close-modal');
+
+    // Attach click events to pills with data-img attributes
+    document.querySelectorAll('.mini-ui span[data-img]').forEach((pill) => {
+      pill.addEventListener('click', () => {
+        const imgSrc = pill.getAttribute('data-img');
+        if (imgSrc) {
+          modalImg.src = imgSrc;
+          modal.style.display = 'flex';
+        }
+      });
+    });
+
+    // Close on 'X' button
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+      modalImg.src = '';
+    });
+
+    // Close on background backdrop click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        modalImg.src = '';
+      }
+    });
+
+    // Close with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') {
+        modal.style.display = 'none';
+        modalImg.src = '';
+      }
     });
 
     // ----- FORM SUBMIT (GOOGLE SHEETS INTEGRATION) -----
