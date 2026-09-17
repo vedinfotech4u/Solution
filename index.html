@@ -212,7 +212,7 @@
     .hero p {
       font-size: 1.2rem;
       color: #475569;
-      max-width: 700px;
+      max-width: 720px;
       margin-bottom: 36px;
     }
 
@@ -314,10 +314,10 @@
       margin-bottom: 40px;
     }
 
-    /* ----- PROBLEM CARDS ----- */
-    .grid-3 {
+    /* ----- PROBLEM / FEATURE CARDS ----- */
+    .grid-4-feature {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 24px;
     }
 
@@ -348,14 +348,14 @@
     .card-icon.green { color: #16a34a; }
 
     .card h3 {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 600;
       color: #0f172a;
       margin-bottom: 8px;
     }
 
     .card p {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       color: #475569;
     }
 
@@ -491,6 +491,26 @@
       color: #fff;
     }
 
+    /* Highlight Banner */
+    .feature-highlight-box {
+      background: #eff6ff;
+      border: 1.5px dashed #2563eb;
+      border-radius: 16px;
+      padding: 14px 20px;
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #1e40af;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-highlight-box i {
+      font-size: 1.3rem;
+      color: #2563eb;
+    }
+
     /* ----- LIGHTBOX MODAL ----- */
     .img-modal {
       display: none;
@@ -607,12 +627,17 @@
     }
 
     .pricing-card ul li {
-      padding: 6px 0;
+      padding: 7px 0;
       display: flex;
       align-items: center;
       gap: 12px;
       color: #334155;
       font-size: 0.95rem;
+    }
+
+    .pricing-card ul li.highlighted {
+      color: #0f172a;
+      font-weight: 600;
     }
 
     .pricing-card ul li i {
@@ -646,7 +671,7 @@
 
     .cta-features {
       display: flex;
-      gap: 32px;
+      gap: 28px;
       flex-wrap: wrap;
       margin-bottom: 32px;
     }
@@ -717,7 +742,7 @@
     @media (max-width: 1024px) {
       .hero h1 { font-size: 2.8rem; }
       .grid-4 { grid-template-columns: repeat(2, 1fr); }
-      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .grid-4-feature { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 768px) {
@@ -748,7 +773,7 @@
       .hero-stats { gap: 28px; }
       .hero-stats .stat-item .number { font-size: 1.8rem; }
 
-      .grid-3 { grid-template-columns: 1fr; }
+      .grid-4-feature { grid-template-columns: 1fr; }
       .grid-4 { grid-template-columns: 1fr 1fr; }
       .pricing-grid { grid-template-columns: 1fr; }
 
@@ -782,7 +807,7 @@
         <i class="fas fa-school"></i> Ved Infotech Solutions
       </a>
       <div class="nav-links" id="navLinks">
-        <a href="#problem">Problem</a>
+        <a href="#features">Features</a>
         <a href="#roles">Roles</a>
         <a href="#screenshots">Screenshots</a>
         <a href="#pricing">Pricing</a>
@@ -802,7 +827,7 @@
         Run Your Entire School <span>Error-Free</span> with 50% Less Staff Overhead
       </h1>
       <p class="reveal delay-2">
-        One centralized platform connecting Owners, Principals, Teachers, and Parents — starting at just <strong>₹3,000/month</strong>.
+        One unified system connecting Owners, Principals, Teachers, and Parents — plus a <strong>Custom Dedicated Website</strong> for your school included in the same cost, starting at just <strong>₹3,000/month</strong>.
       </p>
       <div class="hero-buttons reveal delay-3">
         <a href="#contact" class="btn btn-primary">
@@ -830,28 +855,33 @@
     </div>
   </section>
 
-  <!-- ===== PROBLEM SECTION ===== -->
-  <section class="section" id="problem">
+  <!-- ===== FEATURES & PROBLEMS SECTION ===== -->
+  <section class="section" id="features">
     <div class="container">
-      <span class="section-label reveal">The Traditional School Problem</span>
-      <h2 class="section-title reveal delay-1">Manual Management Bleeds School Budgets & Time</h2>
-      <p class="section-subtitle reveal delay-2">Schools lose money and efficiency due to outdated, manual processes.</p>
+      <span class="section-label reveal">Why Choose Ved Infotech</span>
+      <h2 class="section-title reveal delay-1">Cut Friction, Automate Campus & Build Online Presence</h2>
+      <p class="section-subtitle reveal delay-2">Solve administrative chaos while getting full digital visibility for your institution at zero extra cost.</p>
 
-      <div class="grid-3">
+      <div class="grid-4-feature">
         <div class="card reveal delay-1">
           <div class="card-icon red"><i class="fas fa-users"></i></div>
           <h3>Excessive Clerical Staff</h3>
-          <p>Multiple salaried clerks doing manual fee registers.</p>
+          <p>Eliminate multiple salaried clerks handling manual fee registers and paper notices.</p>
         </div>
         <div class="card reveal delay-2">
           <div class="card-icon orange"><i class="fas fa-calculator"></i></div>
           <h3>Unforgiving Human Errors</h3>
-          <p>Attendance mismatches and delayed fee reconciliations.</p>
+          <p>Prevent attendance mismatches, lost slips, and time-consuming manual fee reconciliations.</p>
         </div>
         <div class="card reveal delay-3">
           <div class="card-icon purple"><i class="fas fa-print"></i></div>
-          <h3>Heavy Stationary Expenses</h3>
-          <p>Thousands spent on stationary, circulars, and cards.</p>
+          <h3>Heavy Stationery Bills</h3>
+          <p>Save thousands spent on printing circulars, grade cards, and manual receipt slips.</p>
+        </div>
+        <div class="card reveal delay-4" style="border-color: #93c5fd; background: #f0f7ff;">
+          <div class="card-icon blue"><i class="fas fa-laptop-code"></i></div>
+          <h3>Free Dedicated Website</h3>
+          <p>A modern, mobile-friendly school website custom-built for your campus at absolutely no extra cost.</p>
         </div>
       </div>
     </div>
@@ -917,16 +947,21 @@
         </div>
       </div>
       
-      <!-- All-in-One Digital Presence & Cost Cutter -->
+      <!-- Dedicated School Website & Auto-Synced Portal -->
       <div class="screenshot-block reveal delay-2">
         <div class="screenshot-tab-name">
-          <i class="fas fa-globe"></i> Auto-Synced School Portal — Cut ₹15,000/Month in Web Maintenance Costs
+          <i class="fas fa-globe"></i> Dedicated School Website & Auto-Synced Portal — Included at Zero Extra Cost
         </div>
         <div class="screenshot-desc">
-          Replace expensive, outdated third-party websites and dedicated web staff. Most institutions spend <strong>₹10,000–₹15,000 every month</strong> just paying technicians to upload circulars and fix broken pages. This platform acts as your self-updating digital presence: circulars, timetables, fee links, and exam news publish live instantly from administrative inputs—<strong>saving your school ₹1.2L to ₹1.8L annually</strong> while running on 100% autopilot.
+          Get a <strong>custom, dedicated public website designed exclusively for your school</strong> at no extra charge! You no longer need to pay ₹10,000–₹15,000 monthly to outside web developers or maintenance agencies. Notices, admissions, achievements, fee payment portals, and circulars sync automatically right from your admin panel straight to your school website.
+        </div>
+        <div class="feature-highlight-box">
+          <i class="fas fa-gift"></i>
+          <span>Value Add: Fully personalized domain-ready school website included inside the exact same package!</span>
         </div>
         <div class="mini-ui">
-          <span class="active-pill"><i class="fas fa-eye"></i> Zero Web Staff Needed</span>
+          <span class="active-pill"><i class="fas fa-eye"></i> Dedicated School Website</span>
+          <span><i class="fas fa-eye"></i> Zero Maintenance Cost</span>
           <span><i class="fas fa-eye"></i> Instant Auto-Publish</span>
           <span><i class="fas fa-eye"></i> Save ₹15,000/mo</span>
           <span><i class="fas fa-eye"></i> Zero Server Downtime</span>
@@ -966,13 +1001,13 @@
           <i class="fas fa-chalkboard-teacher"></i> Teacher Workspace — Automated Classroom Management & Grading
         </div>
         <div class="screenshot-desc">
-          Empower educators to focus on teaching rather than paperwork. This purpose-built workspace saves staff <strong>over an hours every day</strong> by digitizing roll calls, syllabus planning, assignment sharing, and grade entry. Teachers can mark class attendance in seconds, publish digital study material instantly, and track leave approvals directly—eliminating register clutter and manual record-keeping.
+          Empower educators to focus on teaching rather than paperwork. This purpose-built workspace saves staff <strong>over an hour every day</strong> by digitizing roll calls, syllabus planning, assignment sharing, and grade entry. Teachers can mark class attendance in seconds, publish digital study material instantly, and track leave approvals directly—eliminating register clutter and manual record-keeping.
         </div>
         <div class="mini-ui">
           <span class="active-pill" data-img="teacher/dashboard.png"><i class="fas fa-eye"></i> Dashboard</span>
           <span data-img="teacher/student_mgmt.png"><i class="fas fa-eye"></i> Student</span>
           <span data-img="teacher/take_attendence.png"><i class="fas fa-eye"></i> Attendance</span>
-          <span data-img="teacher/show_attendence.png"><i class="fas fa-eye"></i> show Attendance</span>
+          <span data-img="teacher/show_attendence.png"><i class="fas fa-eye"></i> Show Attendance</span>
           <span data-img="teacher/notice.png"><i class="fas fa-eye"></i> Notice Board</span>
           <span data-img="teacher/timetable.png"><i class="fas fa-eye"></i> Time Table</span>
           <span data-img="teacher/syllabus.png"><i class="fas fa-eye"></i> Syllabus</span>
@@ -1009,7 +1044,7 @@
           Build immediate trust with automated parent communication. The instant a fee payment is recorded or an invoice is generated, parents receive a real-time, branded receipt breakdown delivered straight to their <strong>WhatsApp inbox</strong>. Zero manual follow-ups, zero paper waste, and 100% financial transparency for every transaction.
         </div>
         <div class="mini-ui">
-          <span class="active-pill" data-img="owner/text_msg.png"><i class="fas fa-eye"></i>Auto WhatsApp Receipt Forwarding</span>
+          <span class="active-pill" data-img="owner/text_msg.png"><i class="fas fa-eye"></i> Auto WhatsApp Receipt Forwarding</span>
           <span data-img="owner/digital_receipt.png"><i class="fas fa-eye"></i> Digital PDF Receipt</span>
           <span><i class="fas fa-eye"></i> Instant Ledger Sync</span>
         </div>
@@ -1038,7 +1073,7 @@
     <div class="container">
       <span class="section-label reveal">Pricing</span>
       <h2 class="section-title reveal delay-1">Fraction of the Cost of a Single Administrative Assistant</h2>
-      <p class="section-subtitle reveal delay-2">Simple, transparent pricing that scales with your school.</p>
+      <p class="section-subtitle reveal delay-2">Simple, transparent pricing that scales with your school — with no hidden fees.</p>
 
       <div class="pricing-grid">
         <div class="pricing-card reveal-left">
@@ -1046,6 +1081,7 @@
           <div class="price">₹3,000 <small>/ month</small></div>
           <p>Covers complete school operations for up to <strong>100 enrolled students</strong>.</p>
           <ul>
+            <li class="highlighted"><i class="fas fa-check-circle"></i> <strong>Dedicated School Website Included (Same Cost)</strong></li>
             <li><i class="fas fa-check-circle"></i> Includes all 4 role portals (Owner, Principal, Teacher, Student)</li>
             <li><i class="fas fa-check-circle"></i> Central database & real-time sync</li>
             <li><i class="fas fa-check-circle"></i> Full data migration support</li>
@@ -1055,9 +1091,10 @@
         </div>
         <div class="pricing-card reveal-right">
           <div class="tier-label" style="color: #16a34a;">Growth Add-On</div>
-          <div class="price">₹300 <small>/ student (Yearly) </small></div>
+          <div class="price">₹300 <small>/ student (Yearly)</small></div>
           <p>Affordable scaling beyond 100 students as your enrollment expands.</p>
           <ul>
+            <li class="highlighted"><i class="fas fa-check-circle"></i> <strong>Includes Free School Website Hosting & Support</strong></li>
             <li><i class="fas fa-check-circle"></i> Unlimited teacher and administrative logins at zero fee</li>
             <li><i class="fas fa-check-circle"></i> Priority support</li>
             <li><i class="fas fa-check-circle"></i> Custom document templates</li>
@@ -1072,10 +1109,11 @@
   <section class="section" id="contact">
     <div class="container">
       <div class="cta-section reveal">
-        <h2>Transform Your School Campus within a week</h2>
-        <p>Schedule a live 15-minute walkthrough of your school's customized portal with minimal onboarding charges.</p>
+        <h2>Transform Your School Campus Within a Week</h2>
+        <p>Schedule a live 15-minute walkthrough of your school's customized portal and dedicated website with minimal onboarding charges.</p>
 
         <div class="cta-features">
+          <span><i class="fas fa-check-circle"></i> Free Dedicated Website Included</span>
           <span><i class="fas fa-check-circle"></i> Full Data Migration Support</span>
           <span><i class="fas fa-check-circle"></i> Staff Training Included</span>
           <span><i class="fas fa-check-circle"></i> Minimal Setup Fees</span>
@@ -1108,7 +1146,7 @@
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="container">
-      <p>© 2025 Ved Infotech Solutions. All rights reserved. | School Management Platform</p>
+      <p>© 2025 Ved Infotech Solutions. All rights reserved. | School Management Platform & Web Solutions</p>
     </div>
   </footer>
 
