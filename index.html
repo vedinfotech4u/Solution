@@ -101,7 +101,7 @@
       align-items: center;
     }
 
-    .nav-brand {
+        .nav-brand {
       font-size: 1.5rem;
       font-weight: 800;
       background: linear-gradient(135deg, #f97316, #e11d48, #8b5cf6);
@@ -110,16 +110,35 @@
       color: transparent;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px; /* Space between logo and text */
       letter-spacing: -0.02em;
+      text-decoration: none;
     }
 
-    .nav-brand i {
-      background: linear-gradient(135deg, #f97316, #e11d48);
+    .nav-brand img {
+      width: 150px;
+      height: 54px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Styling for the "Ved Infotech" text */
+    .nav-brand .brand-text {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #f97316, #e11d48, #8b5cf6);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      font-size: 1.8rem;
+      white-space: nowrap; /* Prevents text from wrapping */
+    }
+
+    /* Optional: Hide text on very small screens to save space */
+    @media (max-width: 480px) {
+      .nav-brand .brand-text {
+        display: none;
+      }
     }
 
     .nav-links {
@@ -974,6 +993,38 @@
       padding: 0 8px;
       border-radius: 20px;
     }
+    /* ----- NEW: Hero Logo Showcase (stacked logo) ----- */
+    .hero-logo-showcase {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-logo-showcase img {
+      max-width: 280px;
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 12px 24px rgba(139, 92, 246, 0.2));
+      transition: transform 0.3s ease;
+    }
+
+    .hero-logo-showcase img:hover {
+      transform: scale(1.02);
+    }
+
+    @media (max-width: 768px) {
+      .hero-logo-showcase img {
+        max-width: 200px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-logo-showcase img {
+        max-width: 160px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -981,9 +1032,12 @@
   <!-- ===== NAVBAR ===== -->
   <nav class="navbar" id="navbar">
     <div class="container">
-      <a href="#" class="nav-brand">
-        <i class="fas fa-school"></i> Ved Infotech Solutions
-      </a>
+        <a href="#" class="nav-brand">
+        <!-- Full-width horizontal logo for navbar -->
+        <img src="image/ved_compact.png" alt="VED Infotech" />
+        <!-- Text written to the right of the logo -->
+        <span class="brand-text">Ved Infotech</span>
+        </a>
       <div class="nav-links" id="navLinks">
         <a href="#features">Features</a>
         <a href="#roles">Roles</a>
@@ -1000,6 +1054,10 @@
   <!-- ===== HERO ===== -->
   <section class="hero">
     <div class="container">
+      <!-- Stacked logo displayed prominently in hero -->
+      <div class="hero-logo-showcase reveal">
+        <img src="image/ved_letterhead.png" alt="VED Infotech Stacked Logo" />
+      </div>
       <div class="hero-badge reveal">🌈 Trusted by Schools Across India</div>
       <h1 class="reveal delay-1">
         Run Your Entire School <span>Error-Free</span> with 50% Less Staff Overhead
