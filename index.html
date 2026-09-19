@@ -1885,7 +1885,7 @@
     // Google Apps Script Web App URL
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyw3zCMwMsooHjTxlv6Mkn5v40LNqtOoQ7lQTevX8POOjyvgejizx24QdmfDpVC1LiF/exec";
 
-    // Live phone validation - digits only, maximum 10
+    // Live phone number cleaner
     phoneInput.addEventListener('input', (e) => {
       e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
       
@@ -1898,7 +1898,7 @@
       }
     });
 
-    // Live email validation
+    // Live email validator
     emailInput.addEventListener('input', (e) => {
       if (e.target.value.length > 0 && !EMAIL_REGEX.test(e.target.value)) {
         e.target.classList.add('input-error');
@@ -1912,6 +1912,7 @@
     demoForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      // Honeypot bot protection
       const trap = demoForm.querySelector('input[name="website_trap"]').value;
       if (trap) {
         demoForm.reset();
@@ -1923,6 +1924,8 @@
       const email = emailInput.value.trim();
       const institution = demoForm.querySelector('input[name="institution"]').value.trim();
       const address = demoForm.querySelector('input[name="address"]').value.trim();
+      
+      // Determine selected suite (from dropdown or hidden input)
       const suite = visibleDropdown.value || hiddenField.value;
 
       let hasError = false;
@@ -1971,7 +1974,6 @@
       submitBtn.disabled = true;
 
       try {
-        // Use standard POST without no-cors so we can read the response status
         const response = await fetch(SCRIPT_URL, {
           method: 'POST',
           headers: {
@@ -2006,18 +2008,18 @@
           phoneError.classList.remove('show');
           emailError.classList.remove('show');
         } else {
-          alert("Submission error: " + (result.message || "Please check your inputs and try again."));
+          alert("Submission note: " + (result.message || "Unable to complete submission. Please try again."));
         }
 
       } catch (error) {
-        alert("Unable to submit form. Please verify your connection or try again later.");
+        alert("Something went wrong while submitting. Please check your connection or contact us directly.");
         console.error(error);
       } finally {
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
       }
     });
-
+    
     // ----- NAVBAR SHADOW ON SCROLL -----
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
